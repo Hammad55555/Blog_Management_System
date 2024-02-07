@@ -30,14 +30,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
+    Route::get('blog/{id}',[PostController::class, 'show'])->name('blog.show');
 });
 
-Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
-Route::get('/posts/create',[PostFormController::class, 'store'])->name('blog.posts');
+
+Route::get('/posts/create',[PostFormController::class, 'store'])->name('blog.create');
 Route::get('/posts/{post}/edit', 'PostFormController@edit');
 Route::post('/posts', 'PostFormController@store');
 Route::put('/posts/{post}', 'PostFormController@update');
-Route::match(['get', 'post'], '/posts', 'PostFormController@store');
+
 
 
 

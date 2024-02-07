@@ -22,7 +22,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+        ],
+        'middleware' => [
+            'web',
+            'role:admin', // If using roles
+            'permission:create-post',
+        ],
     ],
+
 
 
 

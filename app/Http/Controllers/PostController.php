@@ -12,10 +12,13 @@ class PostController extends Controller
         $posts = Post::all();
         return view('blog.index', compact('posts'));
     }
-    public function show(Post $post)
-{
-    return view('blog.show', compact('post'));
-}
+
+    public function show($id)
+    {
+        $post = Post::find($id);
+        return view('blog.show', ['post' => $post]);
+    }
+
 
 
     public function store(Request $request)
@@ -24,14 +27,22 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
         ]);
+
         $post = new Post();
         $post->title = $validatedData['title'];
         $post->content = $validatedData['content'];
         $post->user_id = auth()->user()->id;
-        $post->save();
-        return redirect()->route('blog.index')->with('success', 'Post created successfully');
 
+        // Assuming 'author' is a field in your 'posts' table
+        $post->author = auth()->user()->name; // You may need to adjust this based on your user model
+
+        $post->save();
+
+        return response()->json([
+            'message' => 'Create Post Successfully',
+        ], 200);
     }
+
 
 
 public function edit($id)

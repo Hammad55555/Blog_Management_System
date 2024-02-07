@@ -10,8 +10,5 @@
 
     <label for="content">Content:</label>
     <textarea name="content" required>{{ old('content', isset($post) ? $post->content : '') }}</textarea>
-
-    <!-- Add more form fields as needed -->
-
     <button type="submit">{{ $action === 'update' ? 'Update' : 'Create' }} Post</button>
 </form>

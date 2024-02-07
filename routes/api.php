@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +23,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:sanctum')->group(function () {
     // API routes with authentication
+
     Route::post('/posts', [PostController::class, 'store']);
     Route::put('/posts/{post}', [PostController::class, 'update']);
     Route::delete('/posts/{post}', [PostController::class, 'destroy']);
-    Route::get('/posts', [PostController::class, 'index']);
+
+    Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
+    Route::get('blog/{id}',[PostController::class, 'show'])->name('blog.show');
 });
+Route::post('/register',[UserController::class,'register']);
+Route::post('/login',[UserController::class,'login']);
