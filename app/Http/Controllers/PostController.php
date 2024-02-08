@@ -28,7 +28,7 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
-        if (Auth::user()->roles->contains('name', 'Admin')) {
+        if (Auth::user()->roles->contains('name', 'Admin','Editor')) {
             $post = new Post();
             $post->title = $validatedData['title'];
             $post->content = $validatedData['content'];
