@@ -13,6 +13,13 @@ class User extends Authenticatable
 
     // ... rest of the User model
 
+    // app/Models/User.php
+
+public function posts()
+{
+    return $this->hasMany(Post::class);
+}
+
     public function createTokenWithAbilities($name, $abilities)
     {
         return $this->createToken($name, $abilities);

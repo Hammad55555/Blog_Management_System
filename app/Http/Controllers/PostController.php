@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -20,7 +21,6 @@ class PostController extends Controller
     }
 
 
-
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -28,19 +28,22 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
-        $post = new Post();
-        $post->title = $validatedData['title'];
-        $post->content = $validatedData['content'];
-        $post->user_id = auth()->user()->id;
+        if (Auth::user()->roles->contains('name', 'Admin')) {
+            $post = new Post();
+            $post->title = $validatedData['title'];
+            $post->content = $validatedData['content'];
+            $post->user_id = auth()->user()->id;
+            $post->author = auth()->user()->name;
+            $post->save();
 
-        // Assuming 'author' is a field in your 'posts' table
-        $post->author = auth()->user()->name; // You may need to adjust this based on your user model
-
-        $post->save();
-
-        return response()->json([
-            'message' => 'Create Post Successfully',
-        ], 200);
+            return response()->json([
+                'message' => 'Create Post Successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Unauthorized. Only admin can create posts.',
+            ], 401);
+        }
     }
 
 
