@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +26,7 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
-        if (Auth::user()->roles->contains('name', 'Admin','Editor')) {
+        if (Auth::check() && Auth::user()->roles->whereIn('name', ['Admin', 'Editor'])->count() > 0) {
             $post = new Post();
             $post->title = $validatedData['title'];
             $post->content = $validatedData['content'];
@@ -41,13 +39,10 @@ class PostController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Unauthorized. Only admin can create posts.',
+                'message' => 'Unauthorized. Only admin and editor can create posts.',
             ], 401);
         }
     }
-
-
-
 public function edit($id)
 {
     $post = Post::findOrFail($id);
