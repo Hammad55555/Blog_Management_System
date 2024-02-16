@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -18,7 +19,10 @@ class PostController extends Controller
         return view('blog.show', ['post' => $post]);
     }
 
-
+    public function viewblog()
+    {
+         return view('blog.store');
+    }
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -64,8 +68,26 @@ public function update(Request $request, $id)
 
 public function destroy($id)
 {
-    $post = Post::findOrFail($id);
-    $post->delete();
-    return redirect()->route('blog.index')->with('success', 'Post deleted successfully');
+    // Retrieve the post by ID
+    $post = Post::find($id);
+
+    // Check if the post exists
+    if ($post) {
+        // Check if the authenticated user has the "Admin" role
+        if (Auth::check() && Auth::user()->roles->where('name', 'Admin')->count() > 0) {
+            // Delete the post
+            $post->delete();
+            return redirect()->route('blog.index')->with('success', 'Post deleted successfully');
+        } else {
+            // Redirect with an error message if the user is not an admin
+            return redirect()->route('blog.index')->with('error', 'Unauthorized. Only admin can delete posts.');
+        }
+    } else {
+        // Redirect with an error message if the post is not found
+        return redirect()->route('blog.index')->with('error', 'Post not found');
+    }
 }
+
+
+
 }

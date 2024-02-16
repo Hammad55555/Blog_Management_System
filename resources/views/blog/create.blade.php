@@ -1,4 +1,4 @@
 
-<h1>Create Post</h1>
+<h1>Create Posts</h1>
 
 @include('blog._form', ['action' => 'posts'])

@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e41a898e4d7099b5192a5aa7e7abe70f",
+    "content-hash": "28c0ef6dea345979d950e223324d5a50",
     "packages": [
+        {
+            "name": "aliabdulaziz/laravel-md-drawer",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aliabdulaziz/laravel-md-drawer.git",
+                "reference": "b531c2ab30015077b27ae90619a092e956f48954"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aliabdulaziz/laravel-md-drawer/zipball/b531c2ab30015077b27ae90619a092e956f48954",
+                "reference": "b531c2ab30015077b27ae90619a092e956f48954",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Aliabdulaziz\\LaravelMDDrawer\\LaravelMDDrawerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aliabdulaziz\\LaravelMDDrawer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ali Abdulaziz",
+                    "email": "ali_almancie@hotmail.com"
+                }
+            ],
+            "description": "This Laravel package provides a simple drawer-based front-end layout.",
+            "support": {
+                "issues": "https://github.com/aliabdulaziz/laravel-md-drawer/issues",
+                "source": "https://github.com/aliabdulaziz/laravel-md-drawer/tree/v1.0.3"
+            },
+            "time": "2018-05-20T12:34:21+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.11.0",

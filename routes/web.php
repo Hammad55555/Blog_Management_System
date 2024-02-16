@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/posts/create',[PostFormController::class, 'store'])->name('blog.create');
+Route::post('/posts/create',[PostFormController::class, 'store'])->name('blog.create');
 Route::get('/posts/{post}/edit', 'PostFormController@edit');
 Route::post('/posts', 'PostFormController@store');
 Route::put('/posts/{post}', 'PostFormController@update');

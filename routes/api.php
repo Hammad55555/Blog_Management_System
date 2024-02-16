@@ -22,14 +22,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware('auth:sanctum')->group(function () {
-    // API routes with authentication
-
-    Route::post('/posts', [PostController::class, 'store']);
-    Route::put('/posts/{post}', [PostController::class, 'update']);
-    Route::delete('/posts/{post}', [PostController::class, 'destroy']);
-
     Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
-    Route::get('blog/{id}',[PostController::class, 'show'])->name('blog.show');
+    Route::get('blog/{id}', [PostController::class, 'show'])->name('blog.show');
+    Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
+    Route::get('/blog/{id}', [PostController::class, 'show'])->name('blog.show');
+    Route::post('/blogs', [PostController::class, 'store'])->name('blog.store');
+    Route::get('/blogs', [PostController::class, 'viewblog'])->name('blog.store-get');
+    Route::get('/blog/{id}/edit', [PostController::class, 'edit'])->name('blog.edit');
+    Route::put('/blog/{id}', [PostController::class, 'update'])->name('blog.update');
+    Route::delete('/blog/{id}', [PostController::class, 'destroy'])->name('blog.destroy');
 });
 Route::post('/register',[UserController::class,'register']);
 Route::post('/login',[UserController::class,'login']);
