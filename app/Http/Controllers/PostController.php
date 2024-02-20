@@ -47,43 +47,53 @@ class PostController extends Controller
             ], 401);
         }
     }
-public function edit($id)
-{
-    $post = Post::findOrFail($id);
-    return view('blog.edit', ['post' => $post]);
-}
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
 
-public function update(Request $request, $id)
-{
-    $validatedData = $request->validate([
-        'title' => 'required|max:255',
-        'content' => 'required',
-    ]);
-    $post = Post::findOrFail($id);
-    $post->title = $validatedData['title'];
-    $post->content = $validatedData['content'];
-    $post->save();
-    return redirect()->route('blog.index')->with('success', 'Post updated successfully');
-}
+        $this->authorizeUser();
+
+        return view('blog.edit', ['post' => $post]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->authorizeUser();
+
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->title = $validatedData['title'];
+        $post->content = $validatedData['content'];
+        $post->save();
+
+        return redirect()->route('blog.index')->with('success', 'Post updated successfully');
+    }
+
+    private function authorizeUser()
+    {
+        $user = Auth::user();
+
+        if (!$user || !in_array($user->role, ['admin', 'editor'])) {
+            abort(403, 'Unauthorized action. Not Allowed!');
+        }
+    }
 
 public function destroy($id)
 {
-    // Retrieve the post by ID
     $post = Post::find($id);
 
-    // Check if the post exists
     if ($post) {
-        // Check if the authenticated user has the "Admin" role
         if (Auth::check() && Auth::user()->roles->where('name', 'Admin')->count() > 0) {
-            // Delete the post
             $post->delete();
             return redirect()->route('blog.index')->with('success', 'Post deleted successfully');
         } else {
-            // Redirect with an error message if the user is not an admin
             return redirect()->route('blog.index')->with('error', 'Unauthorized. Only admin can delete posts.');
         }
     } else {
-        // Redirect with an error message if the post is not found
         return redirect()->route('blog.index')->with('error', 'Post not found');
     }
 }

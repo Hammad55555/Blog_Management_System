@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/blogs', [PostController::class, 'store'])->name('blog.store');
     Route::get('/blogs', [PostController::class, 'viewblog'])->name('blog.store-get');
     Route::get('/blog/{id}/edit', [PostController::class, 'edit'])->name('blog.edit');
-    Route::put('/blog/{id}', [PostController::class, 'update'])->name('blog.update');
+    Route::put('/blog/{id}', [PostController::class, 'update'])->name( 'blog.update');
     Route::delete('/blog/{id}', [PostController::class, 'destroy'])->name('blog.destroy');
 });
 Route::post('/register',[UserController::class,'register']);
