@@ -47,40 +47,24 @@ class PostController extends Controller
             ], 401);
         }
     }
-    public function edit($id)
-    {
-        $post = Post::findOrFail($id);
+public function edit($id)
+{
+    $post = Post::findOrFail($id);
+    return view('blog.edit', ['post' => $post]);
+}
 
-        $this->authorizeUser();
-
-        return view('blog.edit', ['post' => $post]);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $this->authorizeUser();
-
-        $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-        ]);
-
-        $post = Post::findOrFail($id);
-        $post->title = $validatedData['title'];
-        $post->content = $validatedData['content'];
-        $post->save();
-
-        return redirect()->route('blog.index')->with('success', 'Post updated successfully');
-    }
-
-    private function authorizeUser()
-    {
-        $user = Auth::user();
-
-        if (!$user || !in_array($user->role, ['admin', 'editor'])) {
-            abort(403, 'Unauthorized action. Not Allowed!');
-        }
-    }
+public function update(Request $request, $id)
+{
+    $validatedData = $request->validate([
+        'title' => 'required|max:255',
+        'content' => 'required',
+    ]);
+    $post = Post::findOrFail($id);
+    $post->title = $validatedData['title'];
+    $post->content = $validatedData['content'];
+    $post->save();
+    return redirect()->route('blog.index')->with('success', 'Post updated successfully');
+}
 
 public function destroy($id)
 {
