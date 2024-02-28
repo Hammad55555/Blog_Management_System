@@ -57,7 +57,7 @@
     @endguest
 </ul>
 <li class="nav-item drawer-item">
-    <a class="nav-link" href="{{ route('blog.index') }}"
+    <a class="nav-link text-light" href="{{ route('blog.index') }}"
         onclick="event.preventDefault(); document.getElementById('blog.index-form').submit();">
         {{ __('View Posts') }}
     </a>
@@ -66,7 +66,7 @@
     </form>
 </li>
 <li class="nav-item drawer-item">
-    <a class="nav-link" href="{{ route('blog.store') }}"
+    <a class="nav-link text-light" href="{{ route('blog.store') }}"
         onclick="event.preventDefault(); document.getElementById('blog.store-form').submit();">
         {{ __('Create Posts') }}
     </a>
@@ -74,9 +74,19 @@
         @csrf
     </form>
 </li>
+<li class="nav-item drawer-item">
+    <a class="nav-link text-light" href="{{ route('blog.assignRoleShow') }}"
+        onclick="event.preventDefault(); document.getElementById('blog.assignRoleShow').submit();">
+        {{ __('Assign Role') }}
+    </a>
+    <form id="blog.assignRoleShow" action="{{ route('blog.assignRoleShow') }}" method="Get" style="display: none;">
+        @csrf
+    </form>
+</li>
+
 
 <li class="nav-item drawer-item">
-    <a class="nav-link" href="{{ route('logout') }}"
+    <a class="nav-link text-light" href="{{ route('logout') }}"
         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         {{ __('Logout') }}
     </a>

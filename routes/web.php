@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostFormController;
+use App\Http\Controllers\AdminController;
 use App\Models\Post;
 
 /*
@@ -26,12 +27,19 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function (){
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
     Route::get('blog/{id}',[PostController::class, 'show'])->name('blog.show');
+
+    Route::get('/admin', [AdminController::class, 'index'])->name('blog.assignRoleShow');
+    Route::post('assign-role/{user}/{role}', [AdminController::class, 'assignRole'])->name('admin.assignRole');
+
+
+
+
 });
 
 

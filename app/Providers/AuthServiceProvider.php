@@ -6,6 +6,9 @@ use App\Models\Post;
 use App\Policies\PostPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -14,7 +17,16 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $policies = [
+protected function registerPermissions()
+{
+    // Roles
+    Role::create(['name' => 'admin']);
+    Role::create(['name' => 'user']);
+
+    // Permissions
+    Permission::create(['name' => 'assign_roles']);
+}
+     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Post::class => PostPolicy::class,
     ];

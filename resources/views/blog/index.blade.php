@@ -79,7 +79,7 @@
 <body>
 
     <div class="container">
-        <h1>Posts List</h1>
+        <h1>Posts Lists</h1>
         <table>
             <thead>
                 <tr>
@@ -107,6 +107,7 @@
             </tbody>
         </table>
     </div>
+
 
 </body>
 </html>

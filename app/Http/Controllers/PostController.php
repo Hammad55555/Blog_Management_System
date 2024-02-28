@@ -3,7 +3,11 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+// use Spatie\Permission\Contracts\Role;
+use App\Models\Role;
+use Spatie\Permission\Models\Role as ModelsRole;
 
 class PostController extends Controller
 {
@@ -47,6 +51,13 @@ class PostController extends Controller
             ], 401);
         }
     }
+
+public function assignblog($userId)
+{
+    return view('blog.assignblogpermissions', compact('userId'));
+}
+
+
 public function edit($id)
 {
     $post = Post::findOrFail($id);

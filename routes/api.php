@@ -31,6 +31,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/blog/{id}/edit', [PostController::class, 'edit'])->name('blog.edit');
     Route::put('/blog/{id}', [PostController::class, 'update'])->name( 'blog.update');
     Route::delete('/blog/{id}', [PostController::class, 'destroy'])->name('blog.destroy');
+    Route::post('/admin/assign-role', 'AdminController@assignRole')->name('blog.assignRole');
+    Route::get('/admin/assign-role', 'AdminController@assignRoleShow')->name('admin.assignRole');
+
 });
 Route::post('/register',[UserController::class,'register']);
 Route::post('/login',[UserController::class,'login']);
