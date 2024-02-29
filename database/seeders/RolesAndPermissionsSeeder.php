@@ -63,6 +63,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@example.com',
                 'password' => Hash::make('password'),
+                'role' => 'Admin',
             ]);
         }
 
@@ -72,6 +73,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 'name' => 'Editor',
                 'email' => 'editor@example.com',
                 'password' => Hash::make('password'),
+                'role' => 'Editor',
             ]);
         }
 
@@ -81,6 +83,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 'name' => 'Reader',
                 'email' => 'reader@example.com',
                 'password' => Hash::make('password'),
+                'role' => 'Reader',
             ]);
         }
 
