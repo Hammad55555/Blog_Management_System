@@ -65,15 +65,18 @@
         @csrf
     </form>
 </li>
-<li class="nav-item drawer-item">
-    <a class="nav-link text-light" href="{{ route('blog.store') }}"
-        onclick="event.preventDefault(); document.getElementById('blog.store-form').submit();">
-        {{ __('Create Posts') }}
-    </a>
-    <form id="blog.store-form" action="{{ route('blog.store') }}" method="Get" style="display: none;">
-        @csrf
-    </form>
-</li>
+@if(Auth::check() && Auth::user()->hasAnyRole(['Admin', 'Editor']))
+    <li class="nav-item drawer-item">
+        <a class="nav-link text-light" href="{{ route('blog.store') }}"
+            onclick="event.preventDefault(); document.getElementById('blog.store-form').submit();">
+            {{ __('Create Posts') }}
+        </a>
+        <form id="blog.store-form" action="{{ route('blog.store') }}" method="GET" style="display: none;">
+            @csrf
+        </form>
+    </li>
+@endif
+@if(Auth::check() && Auth::user()->hasAnyRole('Admin'))
 <li class="nav-item drawer-item">
     <a class="nav-link text-light" href="{{ route('blog.assignRoleShow') }}"
         onclick="event.preventDefault(); document.getElementById('blog.assignRoleShow').submit();">
@@ -83,6 +86,7 @@
         @csrf
     </form>
 </li>
+@endif
 
 
 <li class="nav-item drawer-item">

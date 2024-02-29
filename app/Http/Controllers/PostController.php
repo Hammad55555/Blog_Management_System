@@ -60,8 +60,15 @@ public function assignblog($userId)
 
 public function edit($id)
 {
+    if (Auth::check() && Auth::user()->roles->whereIn('name', ['Admin', 'Editor'])->count() > 0){
     $post = Post::findOrFail($id);
     return view('blog.edit', ['post' => $post]);
+}
+else {
+    return response()->json([
+        'message' => 'Unauthorized. Only admin and editor can Update posts.',
+    ], 401);
+}
 }
 
 public function update(Request $request, $id)
@@ -70,15 +77,23 @@ public function update(Request $request, $id)
         'title' => 'required|max:255',
         'content' => 'required',
     ]);
+    if (Auth::check() && Auth::user()->roles->whereIn('name', ['Admin', 'Editor'])->count() > 0){
     $post = Post::findOrFail($id);
     $post->title = $validatedData['title'];
     $post->content = $validatedData['content'];
     $post->save();
     return redirect()->route('blog.index')->with('success', 'Post updated successfully');
 }
+else {
+    return response()->json([
+        'message' => 'Unauthorized. Only admin and editor can Update posts.',
+    ], 401);
+}
+}
 
 public function destroy($id)
 {
+    if (Auth::check() && Auth::user()->roles->whereIn('name', ['Admin', 'Editor'])->count() > 0){
     $post = Post::find($id);
 
     if ($post) {
@@ -91,6 +106,13 @@ public function destroy($id)
     } else {
         return redirect()->route('blog.index')->with('error', 'Post not found');
     }
+}
+else {
+    return response()->json([
+        'message' => 'Unauthorized. Only admin can Delete posts.',
+    ], 401);
+}
+
 }
 
 

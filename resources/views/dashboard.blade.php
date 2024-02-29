@@ -40,20 +40,25 @@
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    @if(Auth::check() && Auth::user()->hasRole(['Admin', 'Editor']))
                     <h2 class="text-center py-4 text-2xl font-semibold">
                         <a href="{{ route('blog.store-get') }}">Create Posts</a>
                     </h2>
+                    @endif
                 </div>
             </div>
 
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h2 class="text-center py-4 text-2xl font-semibold">
-                        <a href="{{ route('blog.assignRoleShow') }}">Assign Role</a>
-                    </h2>
+                    @if(Auth::check() && Auth::user()->hasRole('Admin'))
+                        <h2 class="text-center py-4 text-2xl font-semibold">
+                            <a href="{{ route('blog.assignRoleShow') }}">Assign Role</a>
+                        </h2>
+                    @endif
                 </div>
             </div>
+
         </div>
     </div>
 @endsection
